@@ -1,0 +1,103 @@
+\documentclass[varwidth]{standalone}
+\usepackage{xcolor}
+\usepackage{ifthen}
+\usepackage{fp, tikz, pgfplots,amssymb,bm,amsmath}
+\usepackage{amsfonts}
+
+\usetikzlibrary{arrows,shapes,backgrounds,patterns,fadings,decorations,
+	positioning,external,arrows.meta,pgfplots.fillbetween}
+
+\definecolor{tumblue}{RGB}{0, 101, 189} 
+
+
+\begin{document}
+
+	\begin{figure}
+		\pgfplotsset{width=10cm, compat = 1.13, 
+			height = 5.cm, grid= major, 
+			legend cell align = left, ticklabel style = {font=\scriptsize},
+			every axis label/.append style={font=\small},
+			legend style = {font=\tiny},title style={yshift=-7pt, font = \small} }
+		
+		
+		\def\idx{17}
+%		\def\ctr2{13200}
+		\def\file{GP_\idx.txt}
+%		\def\filez{../Trig_files/TrigLearn_z.txt}
+\begin{center}
+	
+
+		\begin{tikzpicture}
+		\begin{axis}[
+		grid=none,
+		xmin=0, xmax=3.1415,
+		ymin=-2.5, ymax=2.5,
+		ylabel=$d(\nu)$, xlabel=$\nu$]
+		
+		\addplot[thick,red] table[x=xtest,y=ytest]{\file};
+		\addplot[thick,blue] table[x=xtest,y=yGP]{\file};
+		\addplot[blue, name path=A] table[x=xtest,y=ystd]{\file};
+		\addplot[blue, name path=B] table[x=xtest,y=ystd_neg]{\file};
+		\tikzfillbetween[of=A and B]{blue, opacity=0.2};
+		
+		\addplot[red,only marks] table[x=xtrain,y=ytrain]{\file};
+		
+%		\addplot[fill=red!20,red!20]table[x=arci_1,y=arci_2 ]{\file};
+%		\addplot[black, skip coords between index={100}{100001}
+%		]table[x=arci_1,y=arci_2 ]{\file};
+%		\ifthenelse{\idx>290}{}{
+%		\draw[-Latex] (axis cs: 0.02,0.4) -- (axis cs: -0.01,0.4);}
+%
+%		
+%		\addplot[line width=5pt,tumblue]table[x=zx_\idx,y=zy_\idx ]{\filez};
+%		
+%		
+%		\pgfplotsset{
+%			after end axis/.code={
+%				\fill[tumblue] (axis cs: 0,0) circle (0.17cm);
+%				\node at (axis cs: 0,0.6) {$~$};
+%			}
+%		}
+		
+		\end{axis}
+%		\begin{axis}[
+%%		colormap/thermal,
+%		mesh/cols=50,
+%		grid=none,
+%		xmin=-0.37, xmax=3.65,
+%		ymin=-2.07, ymax=2.07,
+%		xlabel={$\theta$}, ylabel={$\dot{\theta}$},
+%		xshift = 5.5cm, clip marker paths=true, xtick={0,1.5708,3.1415},xticklabels={$0$,$\frac{\pi}{2}$,$\pi$}]
+%%		\addplot[surf,shader=interp, samples= 2, point meta rel=per plot, point meta=explicit] table[x=Xte_2,y=Xte_1,meta=dVmat_c\idx]{\file};
+%		
+%		\addplot[only marks, blue,mark options={scale=0.75}] table[x=Xte_greeni_2, y=Xte_greeni_1]{\file};
+%		\addplot[only marks, red,mark options={scale=0.75}] table[x=Xte_redi_2, y=Xte_redi_1]{\file};
+%		
+%		\end{axis}
+%		\begin{axis}[
+%		%		colormap/thermal,
+%		mesh/cols=50,
+%		grid=none,
+%		xmin=-0.37, xmax=3.65,
+%		ymin=-2.07, ymax=2.07,
+%		xlabel={$\theta$}, ylabel={$\dot{\theta}$},
+%		xshift = 5.5cm, xtick={0,1.5708,3.1415},xticklabels={$0$,$\frac{\pi}{2}$,$\pi$}]
+%		%		\addplot[surf,shader=interp, samples= 2, point meta rel=per plot, point meta=explicit] table[x=Xte_2,y=Xte_1,meta=dVmat_c\idx]{\file};
+%		
+%		\addplot[green,thick,only marks,mark=+,mark options={scale=1},skip coords between 
+%		index={\ctr2}{20001}]table[x=Xtr_long_2,y=Xtr_long_1 ]{\file};
+%		\addplot[green,very thick,skip coords between 
+%		index={\ctr2}{20001}]table[x=traj_2,y=traj_1 ]{\file};
+%		
+%		\pgfplotsset{
+%			after end axis/.code={
+%				\draw[black,line width=2pt] (axis cs: 3.1415,0) circle (0.1cm);
+%			}
+%		}
+%		
+%		\end{axis}
+		\end{tikzpicture}
+\end{center}
+\end{figure}
+
+\end{document}
